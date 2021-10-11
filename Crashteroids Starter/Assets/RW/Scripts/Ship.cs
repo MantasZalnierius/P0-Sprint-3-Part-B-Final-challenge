@@ -50,6 +50,12 @@ public class Ship : MonoBehaviour
 
     private float maxLeft = -8;
     private float maxRight = 8;
+    private float timerStart = 0;
+    private float tripleBulletTimer = 1.0f;
+    private bool startedTimer = false;
+    private float timeElasped = 0;
+    private bool istripleShoot = false;
+    private int counter = 0;
 
     // Time in seconds that it takes to reload
     private float reloadTime = 2.0f;
@@ -65,9 +71,29 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space) && canShoot)
+        if (Input.GetKey(KeyCode.Space) && canShoot && !istripleShoot)
         {
+            if (!startedTimer)
+            {
+                timerStart = Time.time;
+                counter = 0;
+                startedTimer = true;
+            }
             ShootLaser();
+        }
+        if (startedTimer == true)
+        {
+            timeElasped = Time.time - timerStart;
+            if (timeElasped >= tripleBulletTimer)
+            {
+                startedTimer = false;
+                istripleShoot = true;
+            }
+        }
+
+        if(canShoot && istripleShoot)
+        {
+            tripleShot();
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -96,6 +122,10 @@ public class Ship : MonoBehaviour
         }
     }
 
+    public void tripleShot()
+    {
+        StartCoroutine("TripleShoot");
+    }
     IEnumerator Shoot()
     {
             canShoot = false;
@@ -115,6 +145,42 @@ public class Ship : MonoBehaviour
         isReloading = false;
         Debug.Log("Reload finished");
     }
+
+    IEnumerator TripleShoot()
+    {
+        if (counter < 3)
+        {
+            canShoot = false;
+            GameObject laserShot = SpawnLaser();
+            laserShot.transform.position = shotSpawn.position;
+            yield return new WaitForSeconds(0.1f);
+            counter++;
+            canShoot = true;
+        }
+    }
+
+    public bool getIsTripleShoot()
+    {
+        return istripleShoot;
+    }
+
+    public int getCounterForTripleShoot()
+    {
+        return counter;
+    }
+
+
+    public void setTimeElasped(float timeElasped)
+    {
+        this.timeElasped = timeElasped;
+    }
+
+    public void setStartedTime(bool startedTimer)
+    {
+        this.startedTimer = startedTimer;
+    }
+
+
 
     public GameObject SpawnLaser()
     {
