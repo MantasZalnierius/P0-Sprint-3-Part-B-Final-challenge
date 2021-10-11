@@ -35,12 +35,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [SerializeField]
-    private GameObject shrapnel;
-
-    [SerializeField]
     private Spawner spawner;
-
-
 
 	void Update ()
     {
@@ -55,18 +50,7 @@ public class Laser : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Asteroid>() != null)
         {
-            GameObject[] shrapnelPieces = new GameObject[4]; // Creates an array for the shrapnel pieces.
-            for (int i = 0; i < 4; i++) // Loops four times to spawn four pieces of shrapnel.
-            {
-                // Instantiates, sets the position to the asteroid, ignores collisions with the asteroid.
-                shrapnelPieces[i] = Instantiate(shrapnel);
-                shrapnelPieces[i].transform.position = collision.gameObject.transform.position;
-                Physics.IgnoreCollision(shrapnelPieces[i].GetComponent<Collider>(), collision.collider);
-
-                for (int j = 0; j < i; j++) // Ignores collisions with all created shrapnel.
-                    Physics.IgnoreCollision(shrapnelPieces[i].GetComponent<Collider>(), shrapnelPieces[j].GetComponent<Collider>());
-            }
-
+            spawner.SpawnShrapnel(collision.gameObject.transform.position, collision.collider);
             Game.AsteroidDestroyed();
             Destroy(gameObject);
             spawner.asteroids.Remove(collision.gameObject);

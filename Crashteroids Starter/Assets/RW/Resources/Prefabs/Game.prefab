@@ -5856,8 +5856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e62766b3212c8a498e6322c9ebc33de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrapnel: {fileID: 6466265148856220378, guid: 29106d063002fa546b4061da052b7aac,
-    type: 3}
   spawner: {fileID: 114967116146624472}
 --- !u!54 &54607553103520588
 Rigidbody:
@@ -5985,10 +5983,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroids: []
+  shrapnelPieces: []
   asteroid1: {fileID: 1612296084411496, guid: f50a9bea22ffe654da9305c58ae6ee5c, type: 3}
   asteroid2: {fileID: 1927950529812976, guid: 6ed3af977d730f14191f1c897d7cf80a, type: 3}
   asteroid3: {fileID: 1918484266454062, guid: 0967477038b42074b89d5a5e0332c0b8, type: 3}
   asteroid4: {fileID: 1250866368372588, guid: e2c9968c0cd782443b03d26a6ccf9664, type: 3}
+  shrapnel: {fileID: 6466265148856220378, guid: 29106d063002fa546b4061da052b7aac,
+    type: 3}
 --- !u!1 &1845083579151638
 GameObject:
   m_ObjectHideFlags: 0

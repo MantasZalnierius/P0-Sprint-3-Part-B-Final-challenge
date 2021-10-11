@@ -35,6 +35,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public List<GameObject> asteroids = new List<GameObject>();
+    public List<GameObject> shrapnelPieces = new List<GameObject>();
 
     [SerializeField]
     private GameObject asteroid1;
@@ -44,6 +45,9 @@ public class Spawner : MonoBehaviour
     private GameObject asteroid3;
     [SerializeField]
     private GameObject asteroid4;
+
+    [SerializeField]
+    private GameObject shrapnel;
 
     public void BeginSpawning()
     {
@@ -105,5 +109,33 @@ public class Spawner : MonoBehaviour
     public void StopSpawning()
     {
         StopCoroutine("Spawn");
+    }
+
+    public void SpawnShrapnel(Vector3 position, Collider asteroidCollider)
+    {
+        GameObject[] spawnedPieces = new GameObject[4]; // Creates an array for the shrapnel pieces.
+        for (int i = 0; i < 4; i++) // Loops four times to spawn four pieces of shrapnel.
+        {
+            // Instantiates, sets the position to the asteroid, ignores collisions with the asteroid.
+            spawnedPieces[i] = Instantiate(shrapnel);
+            spawnedPieces[i].SetActive(true);
+            spawnedPieces[i].transform.position = position;
+            Physics.IgnoreCollision(spawnedPieces[i].GetComponent<Collider>(), asteroidCollider);
+
+            for (int j = 0; j < i; j++) // Ignores collisions with all created shrapnel.
+                Physics.IgnoreCollision(spawnedPieces[i].GetComponent<Collider>(), spawnedPieces[j].GetComponent<Collider>());
+
+            shrapnelPieces.Add(spawnedPieces[i]);
+        }
+    }
+
+    public void ClearShrapnel()
+    {
+        foreach (GameObject shrapnelPiece in shrapnelPieces)
+        {
+            Destroy(shrapnelPiece);
+        }
+
+        shrapnelPieces.Clear();
     }
 }
