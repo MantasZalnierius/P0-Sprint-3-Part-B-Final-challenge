@@ -36,9 +36,8 @@ public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
     private float maxY = -5;
-    private int health = 1;
-    private bool strongAsteroid = false;
-    private int percentage = 2;
+    public int health = 0;
+    private int rand_num;
 
     private void Update()
     {
@@ -59,18 +58,26 @@ public class Asteroid : MonoBehaviour
         if (collision.gameObject.name == "ShipModel")
         {
             Game.GameOver();
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
 
     public void LargeAsteroid()
     {
-        int rand_num = Random.Range(1,2);
-        if(rand_num > percentage)
+        rand_num = Random.Range(1,20);
+        if(rand_num > 10)
         {
-            strongAsteroid = true;
+            
             health = 2;
+            Debug.Log("EPIC GAMERS: " + health);
         }
+        else{
+            health = 1;
+            Debug.Log("NON-EPIC GAMERS: " + health);
+        }
+
     }
+
+
     
 }
