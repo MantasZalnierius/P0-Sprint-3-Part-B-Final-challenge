@@ -38,6 +38,7 @@ public class Ship : MonoBehaviour
     public bool isReloading = false;
     public float speed = 1;
     public bool canShoot = true;
+    public int damage = 0;
 
     [SerializeField]
     private  MeshRenderer mesh;
@@ -98,12 +99,20 @@ public class Ship : MonoBehaviour
 
     IEnumerator Shoot()
     {
+            if(currentAmmo == 9){
+                damage = sniperDamage();
+            }
+            else{
+                damage = 1;
+            }
             canShoot = false;
             GameObject laserShot = SpawnLaser();
             laserShot.transform.position = shotSpawn.position;
             yield return new WaitForSeconds(0.4f);
             canShoot = true;
             currentAmmo--;
+
+
     }
 
     IEnumerator Reload()
@@ -159,5 +168,22 @@ public class Ship : MonoBehaviour
     public int GetCurrentAmmo()
     {
         return currentAmmo;
+    }
+
+    public int sniperDamage()
+    {
+        return damage = 2;
+    }
+
+    public void lastShot()
+    {
+        damage = 2;
+    }
+    public GameObject SpawnSniperLaser()
+    {
+        GameObject newLaser = Instantiate(laser);
+        newLaser.SetActive(true);
+        damage = 2;
+        return newLaser;
     }
 }
