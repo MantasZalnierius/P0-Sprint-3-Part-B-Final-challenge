@@ -31,6 +31,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator LasersSpawnShrapnel()
         {
+            yield return new WaitForSeconds(0.1f); // Wait for the Setup to spawn shrapnel.
+
             // The laser and asteroid are created in Setup, we just need to check the shrapnel spawned.
             Assert.AreEqual(4, game.GetSpawner().shrapnelPieces.Count);
             yield return null;
@@ -39,6 +41,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator ShrapnelIsClearedOnNewGame()
         {
+            yield return new WaitForSeconds(0.1f); // Wait for the Setup to spawn shrapnel.
+
             // Makes sure there's at least one shrapnel before starting a new game.
             Assert.Greater(game.GetSpawner().shrapnelPieces.Count, 1);
             game.NewGame();
@@ -49,6 +53,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator ShrapnelMoves()
         {
+            yield return new WaitForSeconds(0.1f); // Wait for the Setup to spawn shrapnel.
+
             // Makes sure there's at least one shrapnel before accessing the first in the list.
             Assert.Greater(game.GetSpawner().shrapnelPieces.Count, 1);
             GameObject shrapnel = game.GetSpawner().shrapnelPieces[0];
@@ -61,6 +67,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator ShrapnelDestoysAsteroids()
         {
+            yield return new WaitForSeconds(0.1f); // Wait for the Setup to spawn shrapnel.
+
             // Makes sure there's at least one shrapnel before accessing the first in the list.
             Assert.Greater(game.GetSpawner().shrapnelPieces.Count, 1);
             GameObject shrapnel = game.GetSpawner().shrapnelPieces[0];
