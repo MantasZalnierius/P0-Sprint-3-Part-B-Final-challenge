@@ -69,5 +69,26 @@ namespace Tests
 
             Assert.AreNotEqual(position, shrapnel.transform.position);
         }
+
+        [UnityTest]
+        public IEnumerator ShrapnelDestoysAsteroids()
+        {
+            GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+            GameObject laser = game.GetShip().SpawnLaser();
+            laser.transform.position = asteroid.transform.position;
+
+            yield return new WaitForSeconds(0.1f);
+
+            Assert.Greater(game.GetSpawner().shrapnelPieces.Count, 1);
+            GameObject shrapnel = game.GetSpawner().shrapnelPieces[0];
+
+            asteroid = game.GetSpawner().SpawnAsteroid();
+            shrapnel.transform.position = asteroid.transform.position;
+
+            yield return new WaitForSeconds(0.1f);
+
+            UnityEngine.Assertions.Assert.IsNull(asteroid);
+            UnityEngine.Assertions.Assert.IsNull(shrapnel);
+        }
     }
 }
