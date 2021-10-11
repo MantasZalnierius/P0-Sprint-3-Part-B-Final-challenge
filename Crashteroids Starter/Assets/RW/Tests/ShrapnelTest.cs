@@ -35,5 +35,21 @@ namespace Tests
 
             Assert.AreEqual(4, game.GetSpawner().shrapnelPieces.Count);
         }
+
+        [UnityTest]
+        public IEnumerator ShrapnelIsClearedOnNewGame()
+        {
+            GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+            GameObject laser = game.GetShip().SpawnLaser();
+            laser.transform.position = asteroid.transform.position;
+
+            yield return new WaitForSeconds(0.1f);
+
+            Assert.AreEqual(4, game.GetSpawner().shrapnelPieces.Count);
+
+            game.NewGame();
+
+            Assert.AreEqual(0, game.GetSpawner().shrapnelPieces.Count);
+        }
     }
 }
