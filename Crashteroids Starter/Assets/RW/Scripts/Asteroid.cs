@@ -36,6 +36,10 @@ public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
     private float maxY = -5;
+    private int health = 1;
+    private bool strongAsteroid = false;
+    public static Random RandomGen = new Random();
+    private int percentage = 50;
 
     private void Update()
     {
@@ -59,4 +63,15 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void LargeAsteroid()
+    {
+        int rand_num = RandomGen.Next(100);
+        if(rand_num > percentage)
+        {
+            strongAsteroid = true;
+            health = 2;
+        }
+    }
+    
 }
