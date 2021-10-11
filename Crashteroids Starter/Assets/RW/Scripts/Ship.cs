@@ -35,6 +35,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     public bool isDead = false;
+    public bool isReloading = false;
     public float speed = 1;
     public bool canShoot = true;
 
@@ -49,6 +50,13 @@ public class Ship : MonoBehaviour
 
     private float maxLeft = -8;
     private float maxRight = 8;
+
+    // Time in seconds that it takes to reload
+    private float reloadTime = 2.0f;
+
+    // Number of shots available before next reload
+    private const int MAX_AMMO = 10;
+    private int currentAmmo = MAX_AMMO;
 
     private void Update()
     {
@@ -75,16 +83,37 @@ public class Ship : MonoBehaviour
 
     public void ShootLaser()
     {
-        StartCoroutine("Shoot");
+        if (!isReloading)
+        {
+            if (currentAmmo > 0)
+            {
+                StartCoroutine("Shoot");
+            }
+            else
+            {
+                StartCoroutine("Reload");
+            }
+        }
     }
 
     IEnumerator Shoot()
     {
-        canShoot = false;
-        GameObject laserShot = SpawnLaser();
-        laserShot.transform.position = shotSpawn.position;
-        yield return new WaitForSeconds(0.4f);
-        canShoot = true;
+            canShoot = false;
+            GameObject laserShot = SpawnLaser();
+            laserShot.transform.position = shotSpawn.position;
+            yield return new WaitForSeconds(0.4f);
+            canShoot = true;
+            currentAmmo--;
+    }
+
+    IEnumerator Reload()
+    {
+        Debug.Log("Starting reload");
+        isReloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = MAX_AMMO;
+        isReloading = false;
+        Debug.Log("Reload finished");
     }
 
     public GameObject SpawnLaser()
@@ -124,5 +153,11 @@ public class Ship : MonoBehaviour
         explosion.SetActive(false);
         mesh.enabled = true;
         isDead = false;
+        currentAmmo = MAX_AMMO;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
     }
 }
