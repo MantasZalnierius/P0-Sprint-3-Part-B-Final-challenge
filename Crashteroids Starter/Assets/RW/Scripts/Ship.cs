@@ -50,6 +50,13 @@ public class Ship : MonoBehaviour
 
     private float maxLeft = -8;
     private float maxRight = 8;
+    private float timerStart = 0;
+    private float tripleBulletTimer = 1.0f;
+    private bool startedTimer = false;
+    private float timeElasped = 0;
+    private int counter = 0;
+    private float tripleShootCooldown = 3;
+    private bool isCooldown = false;
 
     // Time in seconds that it takes to reload
     private float reloadTime = 2.0f;
@@ -65,9 +72,40 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space) && canShoot)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShootLaser();
+            if (canShoot)
+            {
+                ShootLaser();
+            }
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!isCooldown)
+            {
+                handleTripleShot();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (canShoot)
+            {
+                ShootLaser();
+            }
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!isCooldown)
+            {
+                handleTripleShot();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            startedTimer = false;
+            timeElasped = 0;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -78,6 +116,26 @@ public class Ship : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             MoveRight();
+        }
+    }
+
+    public void handleTripleShot()
+    {
+        if (!startedTimer)
+        {
+            timerStart = Time.time;
+            counter = 0;
+            startedTimer = true;
+        }
+        if (startedTimer == true)
+        {
+            timeElasped = Time.time - timerStart;
+            if (timeElasped >= tripleBulletTimer)
+            {
+                startedTimer = false;
+                isCooldown = true;
+                tripleShot();
+            }
         }
     }
 
@@ -94,6 +152,16 @@ public class Ship : MonoBehaviour
                 StartCoroutine("Reload");
             }
         }
+    }
+
+    public void tripleShot()
+    {
+        StartCoroutine("TripleShoot");
+    }
+
+    public bool getIsCooldown()
+    {
+        return isCooldown;
     }
 
     IEnumerator Shoot()
@@ -115,6 +183,46 @@ public class Ship : MonoBehaviour
         isReloading = false;
         Debug.Log("Reload finished");
     }
+
+    IEnumerator TripleShoot()
+    {
+        while (counter < 3)
+        {
+            canShoot = false;
+            GameObject laserShot = SpawnLaser();
+            laserShot.transform.position = shotSpawn.position;
+            yield return new WaitForSeconds(0.1f);
+            counter++;
+            canShoot = true;
+
+        }
+        StartCoroutine("cooldown");
+    }
+
+    IEnumerator cooldown()
+    {
+        yield return new WaitForSeconds(tripleShootCooldown);
+        isCooldown = false;
+    }
+
+    public int getCounterForTripleShoot()
+    {
+        return counter;
+    }
+
+
+
+    public void setTimeElasped(float timeElasped)
+    {
+        this.timeElasped = timeElasped;
+    }
+
+    public void setStartedTime(bool startedTimer)
+    {
+        this.startedTimer = startedTimer;
+    }
+
+
 
     public GameObject SpawnLaser()
     {
