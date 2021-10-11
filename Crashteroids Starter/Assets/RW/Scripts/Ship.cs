@@ -54,6 +54,7 @@ public class Ship : MonoBehaviour
     private bool startedTimer = false;
     private float timeElasped = 0;
     private bool istripleShoot = false;
+    private bool isCooldown = false;
     private int counter = 0;
 
     private void Update()
@@ -63,7 +64,14 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space) && canShoot && !istripleShoot)
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (canShoot && !istripleShoot)
+            {
+                ShootLaser();
+            }
+        }
+        if(Input.GetKey(KeyCode.Space))
         {
             if (!startedTimer)
             {
@@ -71,16 +79,20 @@ public class Ship : MonoBehaviour
                 counter = 0;
                 startedTimer = true;
             }
-            ShootLaser();
-        }
-        if (startedTimer == true)
-        {
-            timeElasped = Time.time - timerStart;
-            if (timeElasped >= tripleBulletTimer)
+            if (startedTimer == true)
             {
-                startedTimer = false;
-                istripleShoot = true;
+                timeElasped = Time.time - timerStart;
+                if (timeElasped >= tripleBulletTimer)
+                {
+                    startedTimer = false;
+                    istripleShoot = true;
+                }
             }
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            startedTimer = false;
         }
 
         if(canShoot && istripleShoot)
