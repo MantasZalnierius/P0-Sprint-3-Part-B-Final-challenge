@@ -89,6 +89,21 @@ public class Ship : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            if (canShoot)
+            {
+                ShootLaser();
+            }
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!isCooldown)
+            {
+                handleTripleShot();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
             startedTimer = false;
             timeElasped = 0;
         }
