@@ -119,6 +119,7 @@ public class Spawner : MonoBehaviour
             // Instantiates, sets the position to the asteroid, ignores collisions with the asteroid.
             spawnedPieces[i] = Instantiate(shrapnel);
             spawnedPieces[i].SetActive(true);
+            spawnedPieces[i].GetComponent<Shrapnel>().spawner = this;
             spawnedPieces[i].transform.position = position;
             Physics.IgnoreCollision(spawnedPieces[i].GetComponent<Collider>(), asteroidCollider);
 
