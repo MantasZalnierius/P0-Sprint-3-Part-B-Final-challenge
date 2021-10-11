@@ -26,23 +26,14 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator tripleShootTest()
-        {
-            Ship ship = game.GetShip();
-            ship.setStartedTime(true);
-            yield return new WaitForSeconds(1.0f);
-            Assert.AreEqual(ship.getIsTripleShoot(), true);
-        }
-
-        [UnityTest]
         public IEnumerator tripleShootCounterTest()
         {
             Ship ship = game.GetShip();
             ship.setStartedTime(true);
             yield return new WaitForSeconds(1.1f);
+            ship.handleTripleShot();
+            yield return new WaitForSeconds(1.0f);
             Assert.AreEqual(ship.getCounterForTripleShoot(), 3);
         }
-
-
     }
 }
