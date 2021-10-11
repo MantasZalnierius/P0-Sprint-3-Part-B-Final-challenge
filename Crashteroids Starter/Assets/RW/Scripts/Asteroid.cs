@@ -57,7 +57,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.name == "ShipModel")
         {
-            Game.GameOver();
+           Game.GameOver();
            Destroy(gameObject);
         }
     }
@@ -67,13 +67,12 @@ public class Asteroid : MonoBehaviour
         rand_num = Random.Range(1,20);
         if(rand_num > 10)
         {
-            
             health = 2;
-            Debug.Log("EPIC GAMERS: " + health);
+           // Debug.Log("EPIC GAMERS: " + health);
         }
         else{
             health = 1;
-            Debug.Log("NON-EPIC GAMERS: " + health);
+            //Debug.Log("NON-EPIC GAMERS: " + health);
         }
 
     }

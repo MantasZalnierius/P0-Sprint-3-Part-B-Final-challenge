@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -128,6 +128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1845083579151638, guid: 3befbaa1b3b83f243a244d723a27c16e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4055792686439916, guid: 3befbaa1b3b83f243a244d723a27c16e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -165,6 +169,11 @@ PrefabInstance:
       propertyPath: game
       value: 
       objectReference: {fileID: 2146806670}
+    - target: {fileID: 114762169254249198, guid: 3befbaa1b3b83f243a244d723a27c16e,
+        type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 1791806028}
     - target: {fileID: 114967116146624472, guid: 3befbaa1b3b83f243a244d723a27c16e,
         type: 3}
       propertyPath: shrapnel
@@ -178,6 +187,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3befbaa1b3b83f243a244d723a27c16e, type: 3}
+--- !u!1 &1791806028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1845083579151638, guid: 3befbaa1b3b83f243a244d723a27c16e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1791806027}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2146806670 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114338881368631318, guid: 3befbaa1b3b83f243a244d723a27c16e,

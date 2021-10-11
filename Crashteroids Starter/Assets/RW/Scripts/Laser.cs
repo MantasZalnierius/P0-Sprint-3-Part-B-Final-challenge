@@ -36,6 +36,12 @@ public class Laser : MonoBehaviour
 {
     [SerializeField]
     private Spawner spawner;
+    GameObject ship;
+
+    void Start()
+    {
+        ship = GameObject.Find("ShipModel");
+    }
 
 	void Update ()
     {
@@ -50,7 +56,7 @@ public class Laser : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Asteroid>() != null)
         {
-            if(collision.gameObject.GetComponent<Asteroid>().health < 1)
+           if(collision.gameObject.GetComponent<Asteroid>().health < 1)
             {
                 Game.AsteroidDestroyed();
                 Destroy(gameObject);
@@ -59,11 +65,16 @@ public class Laser : MonoBehaviour
             }
             else
             {
-                
                 spawner.SpawnShrapnel(collision.gameObject.transform.position, collision.collider);
-                collision.gameObject.GetComponent<Asteroid>().health--;
+
                 Destroy(gameObject);
+                collision.gameObject.GetComponent<Asteroid>().health-= ship.GetComponent<Ship>().damage;
             }
+        }
+        
+        if (collision.gameObject.GetComponent<Shrapnel>() !=null) {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }
