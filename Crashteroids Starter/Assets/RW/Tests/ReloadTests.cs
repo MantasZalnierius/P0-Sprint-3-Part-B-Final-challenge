@@ -39,4 +39,28 @@ public class LaserTest
         yield return new WaitForSeconds(2.0f);
         Assert.False(ship.isReloading);
     }
+
+    [UnityTest]
+    public IEnumerator TestFireDisabledWhileReloading()
+    {
+        Assert.AreEqual(ship.GetCurrentAmmo(), 10);
+
+        for (int i = 0; i < 3; ++i)
+        {
+            ship.ShootLaser();
+            yield return new WaitForSeconds(0.4f);
+        }
+
+        Assert.AreEqual(ship.GetCurrentAmmo(), 7);
+
+        ship.isReloading = true;
+
+        for (int i = 0; i < 3; ++i)
+        {
+            ship.ShootLaser();
+            yield return new WaitForSeconds(0.4f);
+        }
+
+        Assert.AreEqual(ship.GetCurrentAmmo(), 7);
+    }
 }
