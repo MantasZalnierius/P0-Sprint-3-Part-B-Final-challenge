@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2019 Razeware LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,8 +38,7 @@ public class Asteroid : MonoBehaviour
     private float maxY = -5;
     private int health = 1;
     private bool strongAsteroid = false;
-    public static Random RandomGen = new Random();
-    private int percentage = 50;
+    private int percentage = 2;
 
     private void Update()
     {
@@ -66,7 +65,7 @@ public class Asteroid : MonoBehaviour
 
     public void LargeAsteroid()
     {
-        int rand_num = RandomGen.Next(100);
+        int rand_num = Random.Range(1,2);
         if(rand_num > percentage)
         {
             strongAsteroid = true;
