@@ -78,6 +78,11 @@ public class Asteroid : MonoBehaviour
 
     }
 
+    public int MaxHealth()
+    {
+       return health = 2;
+    }
+
 
     
 }
