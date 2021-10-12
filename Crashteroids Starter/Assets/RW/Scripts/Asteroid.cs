@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2019 Razeware LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,7 +35,9 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
-    private float maxY = -5;
+    private float maxY = -3;
+    public int health = 0;
+    private int rand_num;
 
     private void Update()
     {
@@ -55,8 +57,28 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.name == "ShipModel")
         {
-            Game.GameOver();
-            Destroy(gameObject);
+           Game.GameOver();
+           Destroy(gameObject);
         }
+    }
+
+    public void AssignAsteroidHealth()
+    {
+        rand_num = Random.Range(1,20);
+        if(rand_num > 10)
+        {
+            health = 2;
+           // Debug.Log("EPIC GAMERS: " + health);
+        }
+        else{
+            health = 1;
+            //Debug.Log("NON-EPIC GAMERS: " + health);
+        }
+
+    }
+
+    public void SetHealthToMax()
+    {
+       health = 2;
     }
 }
