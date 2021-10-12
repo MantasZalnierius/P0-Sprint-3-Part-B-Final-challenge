@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2019 Razeware LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -183,7 +183,7 @@ public class Ship : MonoBehaviour
     {
         GameObject newLaser = Instantiate(laser);
         newLaser.SetActive(true);
-        damage = 2;
+
         return newLaser;
     }
 }
