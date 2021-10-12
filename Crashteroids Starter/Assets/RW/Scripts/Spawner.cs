@@ -91,7 +91,7 @@ public class Spawner : MonoBehaviour
         // Spawn asteroid just above top of screen at a random point along x-axis
         asteroid.transform.position = new Vector3(xPos, 7.35f, 0);
 
-        asteroid.GetComponent<Asteroid>().LargeAsteroid();
+        asteroid.GetComponent<Asteroid>().AssignAsteroidHealth();
 
         asteroids.Add(asteroid);
 
@@ -171,7 +171,7 @@ public class Spawner : MonoBehaviour
         // Spawn asteroid just above top of screen at a random point along x-axis
         asteroid.transform.position = new Vector3(xPos, 7.35f, 0);
 
-        asteroid.GetComponent<Asteroid>().MaxHealth();
+        asteroid.GetComponent<Asteroid>().SetHealthToMax();
 
         asteroids.Add(asteroid);
 

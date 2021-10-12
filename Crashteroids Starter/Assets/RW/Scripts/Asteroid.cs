@@ -35,7 +35,7 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
-    private float maxY = -5;
+    private float maxY = -3;
     public int health = 0;
     private int rand_num;
 
@@ -62,7 +62,7 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    public void LargeAsteroid()
+    public void AssignAsteroidHealth()
     {
         rand_num = Random.Range(1,20);
         if(rand_num > 10)
@@ -77,11 +77,8 @@ public class Asteroid : MonoBehaviour
 
     }
 
-    public int MaxHealth()
+    public void SetHealthToMax()
     {
-       return health = 2;
+       health = 2;
     }
-
-
-    
 }
