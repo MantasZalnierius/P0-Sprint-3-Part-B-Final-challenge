@@ -30,8 +30,7 @@ namespace Tests
         public IEnumerator checkAsteroidHealth()
         {
             GameObject asteroid = game.GetSpawner().MaxAsteroid();
-            yield return new WaitForSeconds(0.1f);
-
+            yield return new WaitForSeconds(0.0f);
             Assert.AreEqual(2, asteroid.GetComponent<Asteroid>().health);
         }
         [UnityTest]
@@ -49,7 +48,7 @@ namespace Tests
             ship.lastShot();
             Debug.Log("Damage: " + ship.damage);
             laserShot.transform.position = asteroid.transform.position;
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
             UnityEngine.Assertions.Assert.IsNull(asteroid);
         }
 
