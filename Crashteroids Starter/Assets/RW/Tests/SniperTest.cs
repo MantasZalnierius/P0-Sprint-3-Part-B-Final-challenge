@@ -47,8 +47,9 @@ namespace Tests
             GameObject asteroid = game.GetSpawner().MaxAsteroid();
             GameObject laserShot = ship.SpawnSniperLaser();
             ship.lastShot();
+            Debug.Log("Damage: " + ship.damage);
             laserShot.transform.position = asteroid.transform.position;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1.0f);
             UnityEngine.Assertions.Assert.IsNull(asteroid);
         }
 
